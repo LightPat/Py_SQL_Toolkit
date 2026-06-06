@@ -1,10 +1,12 @@
 [project]
 name = "py-sql-toolkit"
 version = "0.1.0"
-description = "Add your description here"
+description = "A toolkit for modifying and building SQL queries directly in Python"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "sqlglot>=30.9.0",
+]
 
 [dependency-groups]
 dev = [
