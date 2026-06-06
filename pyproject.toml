@@ -1,6 +1,6 @@
 [project]
 name = "py-sql-toolkit"
-version = "0.1.0"
+version = "0.2.0"
 description = "A toolkit for modifying and building SQL queries directly in Python"
 readme = "README.md"
 requires-python = ">=3.13"
