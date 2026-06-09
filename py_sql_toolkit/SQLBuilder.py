@@ -13,6 +13,9 @@ def add_in_filter(
     """
     Parse any SQL query and add `column_ref IN (values...)` to the WHERE clause.
     Uses sqlglot so it works on complex hand-written queries without breaking them.
+
+    - Integers are rendered as unquoted numeric literals
+    - Strings are rendered as properly quoted string literals
     """
     if not values:
         return sql
@@ -22,8 +25,10 @@ def add_in_filter(
     # Build column reference (supports alias.col or just col)
     col = exp.to_column(column_ref)
 
-    # Build IN (...) with properly quoted literals (handles strings/MRNs safely)
-    in_expr = exp.In(this=col, expressions=[exp.Literal.string(str(v)) for v in values])
+    # Use exp.convert() so the literal type matches the Python type:
+    #   int  -> unquoted number   (e.g. 123)
+    #   str  -> quoted string     (e.g. 'MRN12345')
+    in_expr = exp.In(this=col, expressions=[exp.convert(v) for v in values])
 
     # .where() intelligently ANDs with any existing WHERE clause
     parsed = parsed.where(in_expr)
