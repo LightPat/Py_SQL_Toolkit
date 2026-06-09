@@ -29,7 +29,7 @@ def main():
         sqlglot.parse(query, dialect="snowflake", error_level=sqlglot.ErrorLevel.RAISE)
         print(query)
 
-    print("Generating query with WHERE IN filter using numbers")
+    print("===============\nGenerating query with WHERE IN filter using numbers")
     mrn_list_numbers = [
         123,
         456,
@@ -50,7 +50,7 @@ def main():
         )
 
         for mrn in mrn_list_numbers:
-            assert mrn in query
+            assert str(mrn) in query
 
         sqlglot.parse(query, dialect="snowflake", error_level=sqlglot.ErrorLevel.RAISE)
         print(query)
